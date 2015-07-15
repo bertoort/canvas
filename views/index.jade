@@ -2,4 +2,21 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  canvas#canvas(height="600px", width="780px")
+  .commands
+    label Shape:
+      select#shape
+        option(value="square" name="square") square
+        option(value="circle" name="circle") circle
+    label Color:
+      input#color(type="color", name="color", value="#660066")
+    label Size: 
+      input#size(type="number", name="size", value="30")
+    input#paintAll(type="button", value="paint all")
+    input#paintAllCircles(type="button", value="paint all circles")
+    input#paintAllSquares(type="button", value="paint all squares")
+    input#eraseCircles(type="button", value="erase circles")
+    input#eraseSquares(type="button", value="erase squares")
+    input#eraseAll(type="button", value="erase all")
+    input#randomColor(type="button", value="randomly color")
+    input#randomFill(type="button", value="randomly fill canvas")
