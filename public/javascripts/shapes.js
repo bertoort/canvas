@@ -1,6 +1,4 @@
 var ctx = document.querySelector('#canvas').getContext("2d");
-var squareArr = [];
-var circleArr = [];
 
 function Shape(x,y,size,color) {
   this.x = x;

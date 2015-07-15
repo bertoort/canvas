@@ -1,4 +1,9 @@
 $( document ).ready(function() {
+  var squareArr = [];
+  var circleArr = [];
+  var shapeArr = [];
+  var party = false;
+  var partyMode;
 
   function randomColor() {
     var color = "#";
@@ -44,20 +49,19 @@ $( document ).ready(function() {
     if (shape === 'circle') {
       var circle = new Circle(x,y,size,color);
       circleArr.push(circle);
+      shapeArr.push(circle);
       circle.draw();
     }
     else {
       var square = new Square(x,y,size,color);
       squareArr.push(square);
+      shapeArr.push(square);
       square.draw();
     }
   });
   $('#paintAll').on('click', function (e) {
     var color = $('#color').val();
-    squareArr.map(function (e) {
-      e.paintAll(color);
-    })
-    circleArr.map(function (e) {
+    shapeArr.map(function (e) {
       e.paintAll(color);
     })
   })
@@ -94,14 +98,26 @@ $( document ).ready(function() {
   })
   $('#randomColor').on('click', function (e) {
     ctx.clearRect(0, 0, $('#canvas').width(), $('#canvas').height());
-    squareArr.map(function (e) {
+    shapeArr.map(function (e) {
       var color = randomColor();
       e.paintAll(color);
     })
-    circleArr.map(function (e) {
-      var color = randomColor();
-      e.paintAll(color);
-    })
+  })
+  $('#party').on('click', function (e) {
+    if (party) {
+      party = false;
+      clearInterval(partyMode);
+    }
+    else {
+      party = true;
+      partyMode = setInterval(function () {
+        ctx.clearRect(0, 0, $('#canvas').width(), $('#canvas').height());
+        shapeArr.map(function (e) {
+          var color = randomColor();
+          e.paintAll(color);
+        })
+      }, 500)
+    }
   })
   $('#randomFill').on('click', function (e) {
     for (var i = 0; i < 10; i++) {
@@ -113,11 +129,13 @@ $( document ).ready(function() {
       if (shape === 'circle') {
         var circle = new Circle(x,y,size,color);
         circleArr.push(circle);
+        shapeArr.push(circle);
         circle.draw();
       }
       else {
         var square = new Square(x,y,size,color);
         squareArr.push(square);
+        shapeArr.push(square);
         square.draw();
       }
     }
